@@ -1,5 +1,5 @@
 function VimKaizen(pat, alt)
-  local txt1 = string.format('You entered "%s", which is an anti-pattern.', pat)
+  local txt1 = string.format('You entered "%s".', pat)
   local txt2 = string.format('Consider using "%s" from now on.', alt)
   local txt3 = 'Press "q" or ESC to close window.'
   local txt4 = ''
@@ -35,7 +35,10 @@ local vimKaizenPatterns = {
   {'n', 'ggVG', 'yG'},
   {'n', 'cc', 'S'},
   {'n', 'xi', 's'},
+  {'n', 'cl', 's'},
   {'n', 'dwi', 'cw'},
+  {'n', 'dsi', 'cs'},
+  {'n', 'dpi', 'cp'},
   {'n', 'd2wi', 'c2w'},
   {'n', 'd3wi', 'c3w'},
   {'', '<Right>', 'h'},
@@ -44,6 +47,16 @@ local vimKaizenPatterns = {
   {'', '<Down>', 'j'},
   {'n', '$a', 'A'},
   {'n', '^o', 'o'},
+  {'n', 'ca)','cab'},
+  {'n', 'ca)','cab'},
+  {'n', 'ci)','cib'},
+  {'n', 'ci)','cib'},
+  {'n', 'ca(','cab'},
+  {'n', 'ca(','cab'},
+  {'n', 'ci(','cib'},
+  {'n', '^i', 'I'},
+  {'n', '$a', 'A'},
+  {'n', 'j^', '+'},
 }
 
 for _, tuple in ipairs(vimKaizenPatterns) do

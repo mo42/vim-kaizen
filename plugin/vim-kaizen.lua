@@ -25,13 +25,21 @@ function VimKaizen(pat, alt)
   vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<Cmd>bwipeout!<CR>', {noremap = true, silent = true})
 end
 
-vim.api.nvim_create_user_command('VimHabits', function(opts) VimHabits(opts.args) end, {nargs=1})
-
 local vimKaizenPatterns = {
-    {'n', 'd$', 'D'},
-    {'n', 'y$', 'Y'},
-    {'n', 'ggVG', 'yG'},
-    {'n', 'cc', 'S'},
+  {'n', 'd$', 'D'},
+  {'n', 'y$', 'Y'},
+  {'n', 'ggVG', 'yG'},
+  {'n', 'cc', 'S'},
+  {'n', 'xi', 's'},
+  {'n', 'dwi', 'cw'},
+  {'n', 'd2wi', 'c2w'},
+  {'n', 'd3wi', 'c3w'},
+  {'', '<Right>', 'h'},
+  {'', '<Left>', 'l'},
+  {'', '<Up>', 'k'},
+  {'', '<Down>', 'j'},
+  {'n', '$a', 'A'},
+  {'n', '^o', 'o'},
 }
 
 for _, tuple in ipairs(vimKaizenPatterns) do

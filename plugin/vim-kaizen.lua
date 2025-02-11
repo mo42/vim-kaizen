@@ -2,8 +2,12 @@ function VimKaizen(pat, alt)
   local txt1 = string.format('You entered "%s", which is an anti-pattern.', pat)
   local txt2 = string.format('Consider using "%s" from now on.', alt)
   local txt3 = 'Press "q" or ESC to close window.'
+  local txt4 = ''
+  if #alt == 1 then
+    txt4 = string.format('Try :h %s to see the Vim help.', alt)
+  end
   local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {txt1, txt2, '', txt3})
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {txt1, txt2, '', txt3, '', txt4})
   local ui = vim.api.nvim_list_uis()[1] or vim.api.nvim_list_uis()[0]
 
   local width = 50

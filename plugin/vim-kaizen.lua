@@ -1,7 +1,9 @@
 function VimKaizen(pat, alt)
-  local txt = string.format('You entered "%s", which is an anti-pattern. Consider using "%s" from now on.', pat, alt)
+  local txt1 = string.format('You entered "%s", which is an anti-pattern.', pat)
+  local txt2 = string.format('Consider using "%s" from now on.', alt)
+  local txt3 = 'Press "q" or ESC to close window.'
   local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {txt})
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {txt1, txt2, '', txt3})
   local ui = vim.api.nvim_list_uis()[1] or vim.api.nvim_list_uis()[0]
 
   local width = 50
@@ -29,7 +31,7 @@ local vimKaizenPatterns = {
     {'n', 'd$', 'D'},
     {'n', 'y$', 'Y'},
     {'n', 'ggVG', 'yG'},
-    {'n', 'cc', 'S'}
+    {'n', 'cc', 'S'},
 }
 
 for _, tuple in ipairs(vimKaizenPatterns) do

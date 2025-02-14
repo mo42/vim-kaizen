@@ -1,4 +1,53 @@
-function VimKaizen(pat, alt)
+_G.vim_kaizen_buffer = {}
+
+_G.vim_kaizen_patterns = {
+  ['d$'] = "D",
+  ['jj'] = "2j",
+  ['y$'] = "Y",
+  ['ggVG'] = 'yG',
+  ['cc'] = 'S',
+  ['xi'] = 's',
+  ['cl'] = 's',
+  ['dwi'] = 'cw',
+  ['dsi'] = 'cs',
+  ['dpi'] = 'cp',
+  ['d2wi'] = 'c2w',
+  ['d3wi'] = 'c3w',
+  ['<Right>'] = 'h',
+  ['<Left>'] = 'l',
+  ['<Up>'] = 'k',
+  ['<Down>'] = 'j',
+  ['$a'] = 'A',
+  ['^o'] = 'o',
+  ['^i'] = 'I',
+  ['$a'] = 'A',
+  ['^j'] = '+',
+}
+
+function vim_kaizen_keypress(key)
+  local max_buffer_length = 3
+  table.insert(_G.vim_kaizen_buffer, key)
+  if #_G.vim_kaizen_buffer > max_buffer_length then
+    table.remove(_G.vim_kaizen_buffer, 1)
+  end
+  if #_G.vim_kaizen_buffer > 1 then
+    for i = 1, #_G.vim_kaizen_buffer do
+      local pat = table.concat(_G.vim_kaizen_buffer, "", i, #_G.vim_kaizen_buffer)
+      if _G.vim_kaizen_patterns[pat] then
+          vim_kaizen(pat)
+      end
+    end
+  end
+end
+
+vim.on_key(function(key)
+  if vim.api.nvim_get_mode().mode ~= 'i' then
+    vim_kaizen_keypress(vim.fn.keytrans(key))
+  end
+end, vim.api.nvim_create_namespace("global_key_listener"))
+
+function vim_kaizen(pat)
+  local alt = _G.vim_kaizen_patterns[pat]
   local txt1 = string.format('You entered "%s".', pat)
   local txt2 = string.format('Consider using "%s" from now on.', alt)
   local txt3 = 'Press "q" or ESC to close window.'
@@ -8,6 +57,9 @@ function VimKaizen(pat, alt)
   end
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, {txt1, txt2, '', txt3, '', txt4})
+  vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+  vim.api.nvim_buf_set_option(buf, "modifiable", false)
+  vim.api.nvim_buf_set_option(buf, "readonly", true)
   local ui = vim.api.nvim_list_uis()[1] or vim.api.nvim_list_uis()[0]
 
   local width = 50
@@ -27,39 +79,4 @@ function VimKaizen(pat, alt)
   vim.api.nvim_set_current_win(win)
   vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', '<Cmd>bwipeout!<CR>', {noremap = true, silent = true})
   vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<Cmd>bwipeout!<CR>', {noremap = true, silent = true})
-end
-
-local vimKaizenPatterns = {
-  {'n', 'd$', 'D'},
-  {'n', 'y$', 'Y'},
-  {'n', 'ggVG', 'yG'},
-  {'n', 'cc', 'S'},
-  {'n', 'xi', 's'},
-  {'n', 'cl', 's'},
-  {'n', 'dwi', 'cw'},
-  {'n', 'dsi', 'cs'},
-  {'n', 'dpi', 'cp'},
-  {'n', 'd2wi', 'c2w'},
-  {'n', 'd3wi', 'c3w'},
-  {'', '<Right>', 'h'},
-  {'', '<Left>', 'l'},
-  {'', '<Up>', 'k'},
-  {'', '<Down>', 'j'},
-  {'n', '$a', 'A'},
-  {'n', '^o', 'o'},
-  {'n', 'ca)','cab'},
-  {'n', 'ca)','cab'},
-  {'n', 'ci)','cib'},
-  {'n', 'ci)','cib'},
-  {'n', 'ca(','cab'},
-  {'n', 'ca(','cab'},
-  {'n', 'ci(','cib'},
-  {'n', '^i', 'I'},
-  {'n', '$a', 'A'},
-  {'n', 'j^', '+'},
-}
-
-for _, tuple in ipairs(vimKaizenPatterns) do
-  local map, pat, alt = table.unpack(tuple)
-  vim.keymap.set(map, pat, function() VimKaizen(pat, alt) end, { noremap = true, silent = true })
 end

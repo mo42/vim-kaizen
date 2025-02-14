@@ -1,7 +1,7 @@
 # vim-kaizen
-
-`vim-kaizen` is a NeoVim plugin to encourage continuous improvement in your Vim keybindings.
-It reminds you to use alternative and better keys for increased productivity and efficiency.
+Inspired by the Japanese philosophy of kaizen (改善)—the practice of continuous
+improvement—`vim-kaizen` helps you refine your keystrokes to make you a more
+efficient Vim user.
 
 ## Features
 
@@ -31,21 +31,16 @@ Vim commands and their alternatives:
 | ⬇️        | j           |
 | $a       | A           |
 | ^o       | o           |
-| ca)      | cab         |
-| ca)      | cab         |
-| ci)      | cib         |
-| ci)      | cib         |
-| ca(      | cab         |
-| ca(      | cab         |
-| ci(      | cib         |
 | ^i       | I           |
 | $a       | A           |
-| j^       | +           |
+| ^j       | +           |
  
 ## Installation
 
-#### `vim-plug`
+| Plugin Manager | Plugin Section |
+| --- | --- |
+|Vim-Plug | `Plug 'mo42/vim-kaizen'` |
 
-```vim
-Plug 'mo42/vim-kaizen'
-```
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

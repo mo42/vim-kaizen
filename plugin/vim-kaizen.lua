@@ -1,8 +1,9 @@
 _G.vim_kaizen_buffer = {}
 
+_G.vim_kaizen_enabled = true
+
 _G.vim_kaizen_patterns = {
   ['d$'] = "D",
-  ['jj'] = "2j",
   ['y$'] = "Y",
   ['ggVG'] = 'yG',
   ['cc'] = 'S',
@@ -41,7 +42,7 @@ function vim_kaizen_keypress(key)
 end
 
 vim.on_key(function(key)
-  if vim.api.nvim_get_mode().mode ~= 'i' then
+  if _G.vim_kaizen_enabled and vim.api.nvim_get_mode().mode ~= 'i' then
     vim_kaizen_keypress(vim.fn.keytrans(key))
   end
 end, vim.api.nvim_create_namespace("global_key_listener"))
@@ -80,3 +81,14 @@ function vim_kaizen(pat)
   vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', '<Cmd>bwipeout!<CR>', {noremap = true, silent = true})
   vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<Cmd>bwipeout!<CR>', {noremap = true, silent = true})
 end
+
+function VimKaizenToggle()
+  _G.vim_kaizen_enabled = not _G.vim_kaizen_enabled
+  if _G.vim_kaizen_enabled then
+    print('VimKaizen plugin enabled')
+  else
+    print('VimKaizen plugin disabled')
+  end
+end
+
+vim.api.nvim_create_user_command("VimKaizenToggle", VimKaizenToggle, {})

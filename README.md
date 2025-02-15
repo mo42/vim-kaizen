@@ -7,39 +7,33 @@ efficient Vim user.
 
 - Reminds you to unlearn inefficient commands.
 - Provides suggestions for better commands.
+- `:VimKaizenToggle` allows the user enable or disable the plugin
 
 ![vim-kaizen example in Vim editor](.example.png)
 
 Vim commands and their alternatives:
 
-| Command  | Alternative |
-| -------- | ----------- |
-| d$       | D           |
-| y$       | Y           |
-| ggVG     | yg          |
-| cc       | S           |
-| xi       | s           |
-| cl       | s           |
-| dwi      | cw          |
-| dsi      | cs          |
-| dpi      | cp          |
-| d2wi     | c2w         |
-| d3wi     | c3w         |
-| ⬅️        | h           |
-| ➡️        | l           |
-| ⬆️        | k           |
-| ⬇️        | j           |
-| $a       | A           |
-| ^o       | o           |
-| ^i       | I           |
-| $a       | A           |
-| ^j       | +           |
- 
+| Command  | Alternative | Command  | Alternative |
+| -------- | ----------- | -------- | ----------- | 
+| d$       | D           |  d2wi    | c2w         |
+| y$       | Y           |  d3wi    | c3w         |
+| ggVG     | yg          |  ⬅️       | h           |
+| cc       | S           |  ➡️       | l           |
+| xi       | s           |  ⬆️       | k           |
+| cl       | s           |  ⬇️       | j           |
+| dwi      | cw          |  $a      | A           |
+| dsi      | cs          |  ^o      | o           |
+| dpi      | cp          |  ^i      | I           |
+| $a       | A           |  ^j      | +           |
+
 ## Installation
 
 | Plugin Manager | Plugin Section |
 | --- | --- |
 | Packer | `use 'mo42/vim-kaizen'` |
+| Lazy.nvim | `{ 'mo42/vim-kaizen' }` |
+| Vim-Plug | `Plug 'mo42/vim-kaizen'` |
+| Dein.vim | `call dein#add('mo42/vim-kaizen')` |
 
 ## License
 

@@ -23,6 +23,11 @@ _G.vim_kaizen_patterns = {
   ['^i'] = 'I',
   ['$a'] = 'A',
   ['^j'] = '+',
+  ['^k'] = '-',
+  ['jjj'] = '3j',
+  ['kkk'] = '3k',
+  ['~~~'] = '3~',
+
 }
 
 function vim_kaizen_keypress(key)
@@ -51,10 +56,10 @@ function vim_kaizen(pat)
   local alt = _G.vim_kaizen_patterns[pat]
   local txt1 = string.format('You entered "%s".', pat)
   local txt2 = string.format('Consider using "%s" from now on.', alt)
-  local txt3 = 'Press "q" or ESC to close window.'
+  local txt3 = 'Press "q" or Esc to close window.'
   local txt4 = ''
   if #alt == 1 then
-    txt4 = string.format('Try :h %s to see the Vim help.', alt)
+    txt4 = string.format('Try ":h %s" to see the Vim help.', alt)
   end
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, {txt1, txt2, '', txt3, '', txt4})
@@ -82,7 +87,7 @@ function vim_kaizen(pat)
   vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<Cmd>bwipeout!<CR>', {noremap = true, silent = true})
 end
 
-function VimKaizenToggle()
+function vim_kaizen_toggle()
   _G.vim_kaizen_enabled = not _G.vim_kaizen_enabled
   if _G.vim_kaizen_enabled then
     print('VimKaizen plugin enabled')
@@ -91,4 +96,20 @@ function VimKaizenToggle()
   end
 end
 
-vim.api.nvim_create_user_command("VimKaizenToggle", VimKaizenToggle, {})
+function vim_kaizen_clear()
+  _G.vim_plug_patterns = {}
+  print("Cleared all vim-kaizen patterns")
+end
+
+function vim_kaizen_add(key, value)
+  if key and value then
+    _G.vim_kaizen_patterns[key] = value
+  end
+end
+
+vim.api.nvim_create_user_command("VimKaizenToggle", vim_kaizen_toggle, {})
+vim.api.nvim_create_user_command("VimKaizenClear", vim_kaizen_clear, {})
+vim.api.nvim_create_user_command('VimKaizenAdd', function(opts)
+  local k, v = opts.fargs[1], opts.fargs[2]
+  vim_kaizen_add(k, v)
+end, { nargs = '*' })

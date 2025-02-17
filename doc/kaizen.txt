@@ -24,23 +24,27 @@ better ways of editing.
 
 This is a list of default key presses for which the plugin shows alternatives:
 
-| Command  | Alternative | Command  | Alternative |
-| -------- | ----------- | -------- | ----------- | 
-| d$       | D           |  d2wi    | c2w         |
-| y$       | Y           |  d3wi    | c3w         |
-| ggVG     | yg          |  ⬅️       | h           |
-| cc       | S           |  ➡️       | l           |
-| xi       | s           |  ⬆️       | k           |
-| cl       | s           |  ⬇️       | j           |
-| dwi      | cw          |  $a      | A           |
-| dsi      | cs          |  ^o      | o           |
-| dpi      | cp          |  ^i      | I           |
-| $a       | A           |  ^j      | +           |
+| Command  | Alternative | Command | Alternative |
+| -------- | ----------- | --------| ----------- | 
+| d$       | D           | d2wi    | c2w         |
+| y$       | Y           | d3wi    | c3w         |
+| ggVG     | yg          | ⬅️       | h           |
+| cc       | S           | ➡️       | l           |
+| xi       | s           | ⬆️       | k           |
+| cl       | s           | ⬇️       | j           |
+| dwi      | cw          | $a      | A           |
+| dsi      | cs          | ^o      | o           |
+| dpi      | cp          | ^i      | I           |
+| $a       | A           | ^j      | +           |
+| ^k       | -           | jjj     | 3j          |
+| kkk      | 3k          | ~~~     | 3~          |
 
-After installation, the plugin is enabled by default. If you want to turn it
-off, you can run:
+After installation, the plugin is enabled by default. The user can call the
+following functions:
 
-`:VimKaizenToggle`
+- `:VimKaizenToggle` allows the user enable or disable the plugin
+- `:VimKaizenClear` clears all default patterns
+- `:VimKaizenAdd pat alt` adds user-defined pattern "pat" and suggestion "alt"
 
 ==============================================================================
 2. License                                                    *KaizenLicense*
@@ -65,5 +69,7 @@ GitHub: https://github.com/mo42/vim-kaizen/
 
 v0.0.1
     * Initial release
+v0.0.2
+    * User function for user-defined patterns
 
 ==============================================================================

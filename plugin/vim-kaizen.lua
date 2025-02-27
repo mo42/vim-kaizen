@@ -47,7 +47,8 @@ function vim_kaizen_keypress(key)
 end
 
 vim.on_key(function(key)
-  if _G.vim_kaizen_enabled and vim.api.nvim_get_mode().mode ~= 'i' then
+  local mode = vim.api.nvim_get_mode().mode
+  if _G.vim_kaizen_enabled and mode ~= 'i' and mode ~= 'c' then
     vim_kaizen_keypress(vim.fn.keytrans(key))
   end
 end, vim.api.nvim_create_namespace("global_key_listener"))

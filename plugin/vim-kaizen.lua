@@ -30,10 +30,16 @@ _G.vim_kaizen_patterns = {
 
 }
 
+_G.vim_kaizen_max_buffer_len = 0
+for key, _ in pairs(_G.vim_kaizen_patterns) do
+  if type(key) == 'string' and key[0] ~= '<' then
+    _G.vim_kaizen_max_buffer_len = math.max(_G.vim_kaizen_max_buffer_len, #key)
+  end
+end
+
 function vim_kaizen_keypress(key)
-  local max_buffer_length = 3
   table.insert(_G.vim_kaizen_buffer, key)
-  if #_G.vim_kaizen_buffer > max_buffer_length then
+  if #_G.vim_kaizen_buffer > _G.vim_kaizen_max_buffer_len then
     table.remove(_G.vim_kaizen_buffer, 1)
   end
   if #_G.vim_kaizen_buffer > 1 then

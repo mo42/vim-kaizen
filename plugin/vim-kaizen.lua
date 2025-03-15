@@ -3,8 +3,9 @@ _G.vim_kaizen_buffer = {}
 _G.vim_kaizen_enabled = true
 
 _G.vim_kaizen_patterns = {
-  ['d$'] = "D",
-  ['y$'] = "Y",
+  --TODO Figure out how to overcome NeoVim's internal mappings for these
+  --['d$'] = "D",
+  --['y$'] = "Y",
   ['ggVG'] = 'yG',
   ['cc'] = 'S',
   ['xi'] = 's',
@@ -26,7 +27,7 @@ _G.vim_kaizen_patterns = {
   ['^k'] = '-',
   ['jjj'] = '3j',
   ['kkk'] = '3k',
-  ['~~~'] = '3~',
+  ['~~~'] = '3~ or g~aw',
 
 }
 
@@ -61,7 +62,7 @@ end, vim.api.nvim_create_namespace("global_key_listener"))
 
 function vim_kaizen(pat)
   local alt = _G.vim_kaizen_patterns[pat]
-  local txt1 = string.format('You entered "%s".', pat)
+  local txt1 = string.format('You entered %s.', pat)
   local txt2 = string.format('Consider using "%s" from now on.', alt)
   local txt3 = 'Press "q" or Esc to close window.'
   local txt4 = ''
@@ -76,7 +77,7 @@ function vim_kaizen(pat)
   local ui = vim.api.nvim_list_uis()[1] or vim.api.nvim_list_uis()[0]
 
   local width = 50
-  local height = 10
+  local height = 6
   local opts = {
       relative = 'editor',
       width = width,
